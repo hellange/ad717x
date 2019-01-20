@@ -90,8 +90,8 @@ void loop()
             
     ret = AD7176_ReadRegister(&AD7176_regs[4]);
     Serial.print(ret);
-    Serial.print(" bytes: ");
-    Serial.print(AD7176_regs[4].value, HEX);
+   // Serial.print(" bytes: ");
+    //Serial.print(AD7176_regs[4].value, HEX);
  
 /*
     int8_t ready = 0;
@@ -118,32 +118,52 @@ long vals[] ={4529955,
 //  Serial.println(vals[i+1] - vals[i]);
 //}
 
- float VREF = 5.0;             
+ float VREF = 2.5000;             
  float VFSR = VREF; 
+
+long int bit24;
+long int bit32;
+bit24 = AD7176_regs[4].value;
+ bit24= ( bit24 << 8 );
+bit32 = ( bit24 >> 8 ); // Converting 24 bit two's complement to 32 bit two's complement
   
    float v = (float) ((AD7176_regs[4].value*VFSR*1000.0)/FSR); 
+/*   
  v=v*4;
  v=v/0.8;
  v=v-12500.0;
 v=v/2.0;
+*/
+v=v-VREF*1000.0;
+
 Serial.print(" raw ");
-    Serial.print(AD7176_regs[4].value, BIN);
+    Serial.print(AD7176_regs[4].value, HEX);
     
     Serial.print(" raw volt ");
     Serial.print(v);
-    Serial.print(" adjusted gain ");
+    
 
-     v=v - v*0.00044;
+ //float offset = 1.03;
+ //float offset = -1.374;
+ //v=v-offset-0.14-0.03+0.1;
+ v=v-0.8;
+   Serial.print(" adjusted offset ");
+
+     Serial.print(v);
+
+
+    // v=v - v*0.00044;
+v=v + v*0.065;
+    Serial.print(" adjusted gain ");
 
     Serial.print(v);
 
-  Serial.print(" adjusted offset ");
-
- float offset = 1.03;
- v=v-offset;
-    Serial.println(v);
+    Serial.print(" ");
+    //double raw = (int_24t)AD7176_regs[4].value;
+    //raw=raw-0x8000;
+    //raw=raw*2.0;
+    //Serial.println(raw*2.5/(double)(2^24));
+    Serial.println((bit32-0x8000)/2^24, DEC);
     delay(1000);
    }
 }
-
-

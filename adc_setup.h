@@ -2,9 +2,9 @@
 #include <stdint.h>
 #include <Arduino.h>
 
-#include "libraries/AD7176/AD7176_regs.h"
-#include "libraries/AD7176/AD7176_Comm.h"
-#include "libraries/AD7176/AD7176.h"
+#include "AD7176_regs.h"
+#include "AD7176_Comm.h"
+#include "AD7176.h"
 
 #ifndef _DAC_SETUP_H_
 #define _DAC_SETUP_H_

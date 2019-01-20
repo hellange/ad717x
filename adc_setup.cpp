@@ -16,13 +16,17 @@ st_reg init_state[] =
     {0x11, 2, 0, 0x0000l, "Ch_Map_1 "}, //CH_Map_2
     {0x12, 2, 0, 0x0000l, "Ch_Map_2 "}, //CH_Map_3
     {0x13, 2, 0, 0x0000l, "Ch_Map_3 "}, //CH_Map_4
-//    {0x20, 2, 0, 0x1020l, "SetupCfg0"}, //Setup_Config_1
-        {0x20, 2, 0, 0x1020l, "SetupCfg0"}, //Setup_Config_1  unipolar
+    {0x20, 2, 0, 0x1020l, "SetupCfg0"}, //Setup_Config_1   //ext ref
+//        {0x20, 2, 0, 0x0020l, "SetupCfg0"}, //Setup_Config_1  unipolar
 
     {0x21, 2, 0, 0x1020l, "SetupCfg1"}, //Setup_Config_2
     {0x22, 2, 0, 0x1020l, "SetupCfg2"}, //Setup_Config_3
     {0x23, 2, 0, 0x1020l, "SetupCfg3"}, //Setup_Config_4
-    {0x28, 2, 0, 0x020Al, "FilterCf0"}, //Filter_Config_1
+    
+    //{0x28, 2, 0, 0x020Al, "FilterCf0"}, //Filter_Config_1
+    {0x28, 2, 0, 0x0214l, "FilterCf0"}, //Filter_Config_1  // 5 pr sek
+    
+    
     {0x29, 2, 0, 0x0200l, "FilterCf1"}, //Filter_Config_2
     {0x2a, 2, 0, 0x0200l, "FilterCf2"}, //Filter_Config_3
     {0x2b, 2, 0, 0x0200l, "FilterCf3"}, //Filter_Config_4
