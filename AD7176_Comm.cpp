@@ -76,16 +76,12 @@ unsigned char AD7176_Init(unsigned char lsbFirst,
                        unsigned char clockPol,
                        unsigned char clockEdg)
 {
-    // Add your code here.
-    SPI.begin();
-    /*
+    SPI.begin();    
     AD7176_spisettings = SPISettings(
         clockFreq,
         lsbFirst ? LSBFIRST : MSBFIRST,
         clockPol ? ( clockEdg ? SPI_MODE1 : SPI_MODE0) : (clockEdg ? SPI_MODE3 : SPI_MODE2)
         );
-        */
-    AD7176_spisettings = SPISettings (8000000, MSBFIRST, SPI_MODE3);
     return 1;
 }
 
@@ -103,7 +99,6 @@ unsigned char AD7176_Read(unsigned char slaveDeviceId,
                        unsigned char* data,
                        unsigned char bytesNumber)
 {
-    // Add your code here.
     SPI.beginTransaction(AD7176_spisettings);
     digitalWrite(AD7176_CS_PIN, LOW);
     SPI.transfer(data, bytesNumber);
@@ -125,7 +120,6 @@ unsigned char AD7176_Write(unsigned char slaveDeviceId,
                         unsigned char* data,
                         unsigned char bytesNumber)
 {
-    // Add your code here.
     SPI.beginTransaction(AD7176_spisettings);
     digitalWrite(AD7176_CS_PIN, LOW);
     SPI.transfer(data, bytesNumber);

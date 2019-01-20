@@ -9,7 +9,7 @@ st_reg init_state[] =
     {0x03, 3, 0, 0x0000l, "Reg_Check"}, //Register_Check
     {0x04, 3, 0, 0x0000l, "ADC_Data "}, //Data_Register
     {0x06, 2, 0, 0x080Cl, "GPIO_Conf"}, //IOCon_Register
-//        {0x06, 2, 0, 0x0800l, "GPIO_Conf"}, //IOCon_Register
+//     {0x06, 2, 0, 0x0800l, "GPIO_Conf"}, //IOCon_Register
 
     {0x07, 2, 0, 0x0000l, "ID_ST_Reg"}, //ID_st_reg
     {0x10, 2, 0, 0x8001l, "Ch_Map_0 "}, //CH_Map_1
@@ -17,7 +17,7 @@ st_reg init_state[] =
     {0x12, 2, 0, 0x0000l, "Ch_Map_2 "}, //CH_Map_3
     {0x13, 2, 0, 0x0000l, "Ch_Map_3 "}, //CH_Map_4
     {0x20, 2, 0, 0x1020l, "SetupCfg0"}, //Setup_Config_1   //ext ref
-//        {0x20, 2, 0, 0x0020l, "SetupCfg0"}, //Setup_Config_1  unipolar
+//    {0x20, 2, 0, 0x0020l, "SetupCfg0"}, //Setup_Config_1  unipolar
 
     {0x21, 2, 0, 0x1020l, "SetupCfg1"}, //Setup_Config_2
     {0x22, 2, 0, 0x1020l, "SetupCfg2"}, //Setup_Config_3
@@ -64,7 +64,7 @@ void initADC7176(){
     Serial.print(" ");
     Serial.print(AD7176_WriteRegister(init_state[regNr]));
     Serial.print(" bytes. Read ");
- Serial.print(init_state[regNr].name);
+    Serial.print(init_state[regNr].name);
     Serial.print(" ");
 
     Serial.print(AD7176_ReadRegister(&AD7176_regs[regNr]));

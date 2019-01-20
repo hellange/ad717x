@@ -343,7 +343,7 @@ int32_t AD7176_Setup(void)
     AD7176_Init(0, 1600000, 1,0);
 
     /*  Reset the device interface.*/
-   AD7176_Reset();
+    AD7176_Reset();
     
     /* Initialize ADC mode register. */
     ret = AD7176_WriteRegister(AD7176_regs[ADC_Mode_Register]);

@@ -44,7 +44,7 @@
 
 #include "Arduino.h"
 
-#define AD7176_CS_PIN 10  //HELGE ARDUIN
+#define AD7176_CS_PIN 10
 #define AD7176_SYNC_PIN 24
 
 /******************************************************************************/
