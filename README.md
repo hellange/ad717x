@@ -2,4 +2,4 @@
 Experimenting with Analog Device AD717x.
 Ref: https://wordpress.com/post/poormanssmu.wordpress.com/444
 
-Helpful resource https://github.com/drogenlied/due-laser-control
+Parts of code initially based on parts of https://github.com/drogenlied/due-laser-control
