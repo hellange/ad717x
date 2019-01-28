@@ -1,6 +1,6 @@
 
-#include "adc_setup.h"
-
+#include "SMU_HAL_717x.h"
+ADCClass ADC2;
 st_reg init_state[] = 
 {
     {0x00, 1, 0, 0x00l,   "Stat_Reg "}, //Status_Register
@@ -41,10 +41,21 @@ st_reg init_state[] =
     {0xFF, 1, 0, 0l,      "Comm_Reg "} //Communications_Register
 };
 
-void initADC7176(){
+float ADCClass::MeasureVoltage() {
+  AD7176_ReadRegister(&AD7176_regs[4]);
+  float v = (float) ((AD7176_regs[4].value*VFSR*1000.0)/FSR); 
+  v=v-VREF*1000.0;
+  return v;
+}
+
+bool ADCClass::dataReady() {
+  return AD7176_ReadRegister(&AD7176_regs[Status_Register]);
+}
+
+void ADCClass::init(){
   Serial.print("SETUP: ");
   
-  Serial.println(AD7176_Setup());//, HEX);
+  Serial.println(AD7176_Setup());
   Serial.println("REGS:");
 
   // copy of AD7176 registers
@@ -74,3 +85,5 @@ void initADC7176(){
   AD7176_UpdateSettings();
   
 }
+
+

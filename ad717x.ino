@@ -4,9 +4,7 @@ int slaveSelectPin = 10;
 
 unsigned int regValue;
 #include <SPI.h>
-#include "adc_setup.h"
-
-#define FSR (((long int)1<<23)-1)
+#include "SMU_HAL_717x.h"
 
 void setup() {   
    Serial.begin(9600);
@@ -16,8 +14,7 @@ void setup() {
    pinMode(12,INPUT);
    pinMode(13,OUTPUT);
  
-   //SPI.beginTransaction (SPISettings (8000000, MSBFIRST, SPI_MODE3)); // 100000
-   initADC7176();
+   ADC2.init();
    delay(1000);
    Serial.println("Start measuring...");
 
@@ -26,41 +23,12 @@ void setup() {
     
 void loop()
 {
-/* 
-    SPI.beginTransaction (SPISettings (12000000, MSBFIRST, SPI_MODE3)); // 100000
-    //digitalWrite(slaveSelectPin,LOW);
-    delay(5);
-    SPI.transfer(B01000111); // Bit 6 = 1 for read. Register 0x07 for ID register.
-    //digitalWrite(slaveSelectPin,HIGH);
-    //digitalWrite(slaveSelectPin,LOW);
-    delay(5);
-    byte b1 = SPI.transfer(0);
-    byte b0 = SPI.transfer(0);
-    byte b2 = SPI.transfer(0);
-    delay(5);
-    // digitalWrite(slaveSelectPin,HIGH);
-    unsigned int result = b0 * 256 + b2;
-    Serial.println(result, HEX);
-*/ 
-   
-   long ret = AD7176_ReadRegister(&AD7176_regs[Status_Register]);
+
+   long ret = ADC2.dataReady();
    if(ret < 0) {
    } else {
-   
-     float VREF = 2.5000;             
-     float VFSR = VREF; 
-  
-     ret = AD7176_ReadRegister(&AD7176_regs[4]);
-     float v = (float) ((AD7176_regs[4].value*VFSR*1000.0)/FSR); 
-     /*   relevant for development board
-     v=v*4;
-     v=v/0.8;
-     v=v-12500.0;
-     v=v/2.0;
-     */
-  
-     v=v-VREF*1000.0;
-  
+     float v = ADC2.MeasureVoltage();
+
      Serial.print("raw ");
      Serial.print(AD7176_regs[4].value, HEX); 
      Serial.print("=");
@@ -71,7 +39,7 @@ void loop()
      Serial.print(" adjusted offset ");
      Serial.print(v);
   
-     float gain_factor = 0.075;
+     float gain_factor = 0.053;
      v = v + v * gain_factor;
      Serial.print(" adjusted gain ");
      Serial.print(v);
